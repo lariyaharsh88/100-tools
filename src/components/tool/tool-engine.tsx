@@ -57,9 +57,9 @@ export default function ToolEngine({ tool }: ToolEngineProps) {
   };
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <section className="ui-surface rounded-3xl p-6">
       <div className="space-y-4">
-        <label htmlFor="tool-input" className="block text-sm font-medium text-slate-700 dark:text-slate-200">
+        <label htmlFor="tool-input" className="block text-sm font-medium">
           Input
         </label>
         <textarea
@@ -67,13 +67,14 @@ export default function ToolEngine({ tool }: ToolEngineProps) {
           value={input}
           onChange={(event) => setInput(event.target.value)}
           placeholder={tool.inputPlaceholder}
-          className="h-36 w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 text-slate-800 outline-none ring-blue-200 transition focus:ring-2 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          className="ui-input h-36 w-full p-4"
         />
         <button
           type="button"
           onClick={handleGenerate}
           disabled={isLoading}
-          className="inline-flex items-center rounded-xl bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center rounded-xl px-5 py-2.5 font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+          style={{ backgroundColor: "var(--primary)", color: "var(--primary-contrast)" }}
         >
           {isLoading ? (
             <span className="inline-flex items-center gap-2">
@@ -86,33 +87,38 @@ export default function ToolEngine({ tool }: ToolEngineProps) {
         </button>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-950">
+      <div className="ui-surface ui-surface-muted mt-8 rounded-2xl p-5">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">{tool.outputLabel}</h3>
+          <h3 className="text-base font-semibold">{tool.outputLabel}</h3>
           <button
             type="button"
             onClick={handleCopy}
             disabled={!output}
-            className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-900"
+            className="rounded-lg border px-3 py-1.5 text-xs font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            style={{
+              borderColor: "var(--border)",
+              color: "var(--text-muted)",
+              backgroundColor: "var(--surface)",
+            }}
           >
             Copy to Clipboard
           </button>
         </div>
-        <pre className="whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-200">{output || "Your generated result appears here."}</pre>
+        <pre className="whitespace-pre-wrap text-sm">{output || "Your generated result appears here."}</pre>
       </div>
 
       <div className="mt-8">
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
+        <h3 className="ui-text-muted mb-3 text-sm font-semibold uppercase tracking-wide">
           Generation History
         </h3>
         {history.length === 0 ? (
-          <p className="text-sm text-slate-500 dark:text-slate-400">No generations yet.</p>
+          <p className="ui-text-muted text-sm">No generations yet.</p>
         ) : (
           <ul className="space-y-3">
             {history.slice(0, 5).map((item) => (
-              <li key={item.createdAt} className="rounded-xl border border-slate-200 p-3 text-sm dark:border-slate-700">
-                <p className="font-medium text-slate-800 dark:text-slate-200">Input: {item.input}</p>
-                <p className="mt-1 text-slate-600 dark:text-slate-300">Output: {item.output}</p>
+              <li key={item.createdAt} className="ui-surface ui-surface-muted rounded-xl p-3 text-sm">
+                <p className="font-medium">Input: {item.input}</p>
+                <p className="ui-text-muted mt-1">Output: {item.output}</p>
               </li>
             ))}
           </ul>

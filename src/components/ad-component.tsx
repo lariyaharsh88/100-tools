@@ -4,7 +4,7 @@ type AdComponentProps = {
 
 export default function AdComponent({ placement }: AdComponentProps) {
   return (
-    <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-400">
+    <div className="ui-surface ui-surface-muted rounded-2xl border-dashed p-6 text-center text-sm ui-text-muted">
       Ad Placeholder ({placement.toUpperCase()} BANNER)
     </div>
   );

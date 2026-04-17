@@ -7,7 +7,7 @@ import { buildFaqSchema, createSeoBody } from "@/lib/seo";
 
 const ToolEngine = dynamic(() => import("@/components/tool/tool-engine"), {
   ssr: false,
-  loading: () => <p className="text-sm text-slate-500">Loading tool...</p>,
+  loading: () => <p className="ui-text-muted text-sm">Loading tool...</p>,
 });
 
 type ToolPageProps = {
@@ -49,8 +49,8 @@ export default function ToolPage({ params }: ToolPageProps) {
   return (
     <main className="mx-auto max-w-4xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
       <article className="space-y-4">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">{tool.name}</h1>
-        <p className="text-base text-slate-600 dark:text-slate-300">{tool.description}</p>
+        <h1 className="text-3xl font-bold sm:text-4xl">{tool.name}</h1>
+        <p className="ui-text-muted text-base">{tool.description}</p>
       </article>
 
       <AdComponent placement="top" />
@@ -59,35 +59,35 @@ export default function ToolPage({ params }: ToolPageProps) {
 
       <AdComponent placement="middle" />
 
-      <section className="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <section className="ui-surface space-y-6 rounded-3xl p-6">
         <section>
           <h2 className="text-2xl font-semibold">What is this tool?</h2>
-          <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{whatIsText}</p>
+          <p className="ui-text-muted mt-3 leading-7">{whatIsText}</p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold">How to use</h2>
           <h3 className="mt-2 text-lg font-medium">Step-by-step workflow</h3>
-          <p className="mt-2 leading-7 text-slate-700 dark:text-slate-300">{howToUseText}</p>
+          <p className="ui-text-muted mt-2 leading-7">{howToUseText}</p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold">Benefits</h2>
-          <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{benefitsText}</p>
+          <p className="ui-text-muted mt-3 leading-7">{benefitsText}</p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold">SEO and growth strategy</h2>
-          <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">{strategyText}</p>
+          <p className="ui-text-muted mt-3 leading-7">{strategyText}</p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold">FAQs</h2>
           <div className="mt-4 space-y-4">
             {tool.faq.map((faq) => (
-              <div key={faq.question} className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
-                <h3 className="font-semibold text-slate-900 dark:text-slate-100">{faq.question}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{faq.answer}</p>
+              <div key={faq.question} className="ui-surface ui-surface-muted rounded-xl p-4">
+                <h3 className="font-semibold">{faq.question}</h3>
+                <p className="ui-text-muted mt-2 text-sm leading-6">{faq.answer}</p>
               </div>
             ))}
           </div>

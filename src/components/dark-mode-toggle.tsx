@@ -25,8 +25,14 @@ export default function DarkModeToggle() {
     <button
       type="button"
       onClick={handleToggle}
-      className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+      className="rounded-full border px-4 py-2 text-sm font-medium shadow-sm transition hover:opacity-90"
+      style={{
+        backgroundColor: "var(--surface-muted)",
+        color: "var(--text)",
+        borderColor: "var(--border)",
+      }}
       aria-label="Toggle dark mode"
+      aria-pressed={isDark}
     >
       {isDark ? "Light" : "Dark"} Mode
     </button>
