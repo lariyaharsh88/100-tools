@@ -1,14 +1,22 @@
 import type { ToolConfig } from "@/data/tools";
 
+type Example = {
+  input: string;
+  output: string;
+};
+
+type UseCase = {
+  title: string;
+  description: string;
+};
+
+function keywordBase(tool: ToolConfig) {
+  return tool.name.toLowerCase().replace(/\(.*?\)/g, "").replace(/\s+/g, " ").trim();
+}
+
 export function createSeoBody(tool: ToolConfig): string[] {
-  if (tool.seoContent) {
-    return [
-      tool.seoContent.whatIs,
-      tool.seoContent.howToUse,
-      tool.seoContent.benefits,
-      tool.seoContent.strategy,
-    ];
-  }
+  const seed = keywordBase(tool);
+  const custom = tool.seoContent;
 
   const baseText =
     `${tool.name} is designed for creators, marketers, founders, and teams that need fast, high-quality outputs without expensive software. ` +
@@ -48,7 +56,45 @@ export function createSeoBody(tool: ToolConfig): string[] {
     `Over time, better user signals and stronger content depth can compound into durable organic growth. ` +
     `That is why this model works well for modern builder-led content businesses and productized media projects.`;
 
-  return [baseText, usageText, benefitText, strategyText];
+  const deepDiveText =
+    `A high-performing ${seed} workflow is usually built on three layers: input quality, output refinement, and publishing context. ` +
+    `Input quality means adding enough detail so the model understands audience, objective, constraints, and desired format. ` +
+    `Output refinement means comparing multiple generations and selecting the strongest direction before polishing language and structure. ` +
+    `Publishing context means adapting your final version to platform constraints such as character limits, metadata requirements, and tone expectations. ` +
+    `Many users skip this third layer and lose performance even when the generated draft is strong. ` +
+    `By using this tool with a repeatable framework, you can improve both speed and quality rather than choosing one over the other. ` +
+    `This is especially useful for lean teams where one person manages strategy, execution, and distribution. ` +
+    `When your process is repeatable, scaling from 5 assets a week to 50 becomes much more realistic.`;
+
+  const optimizationText =
+    `To get better results from ${tool.name}, write prompts the way you would brief a teammate. ` +
+    `State the goal, define the audience, include what success looks like, and set clear constraints such as length or voice. ` +
+    `If your first result feels generic, add specific examples and ask for alternatives with different angles. ` +
+    `For SEO use, include primary keyword, secondary terms, intent type, and funnel stage in your prompt context. ` +
+    `For social content, ask for multiple hooks and CTA styles to increase testing opportunities. ` +
+    `For conversion pages, request value-first framing with objection-aware language. ` +
+    `Small adjustments in prompt structure often produce significant improvements in output quality and relevance. ` +
+    `Over repeated sessions, this compounds into stronger content operations and better performance metrics.`;
+
+  const conversionText =
+    `From a conversion perspective, tool landing pages work best when utility is immediate and trust is clear. ` +
+    `That is why this page places the live generator above educational content, so users can experience value before reading deeply. ` +
+    `After trying the tool, they are more likely to engage with use cases, examples, and best practices because the outcome is now concrete. ` +
+    `This sequence reduces bounce rates and supports longer sessions. ` +
+    `If you run monetization through ads, affiliate links, or premium upgrades, this behavior pattern is valuable because high-intent users spend more time exploring related pages. ` +
+    `A practical way to increase conversion is linking to adjacent tools as part of a workflow, for example generating a title first, then a meta description, then social copy. ` +
+    `Multi-step journeys create more opportunities for both user success and business outcomes. ` +
+    `That is the strategic advantage of a unified tools ecosystem over isolated single pages.`;
+
+  return [
+    custom?.whatIs || baseText,
+    custom?.howToUse || usageText,
+    custom?.benefits || benefitText,
+    custom?.strategy || strategyText,
+    deepDiveText,
+    optimizationText,
+    conversionText,
+  ];
 }
 
 export function buildFaqSchema(tool: ToolConfig) {
@@ -64,4 +110,58 @@ export function buildFaqSchema(tool: ToolConfig) {
       },
     })),
   };
+}
+
+export function getKeywordVariations(tool: ToolConfig): string[] {
+  const base = keywordBase(tool);
+  return [
+    `${base} tool`,
+    `free ${base}`,
+    `${base} online`,
+    `best ${base}`,
+    `${base} generator`,
+    `${base} assistant`,
+    `${base} examples`,
+    `${base} templates`,
+  ];
+}
+
+export function getToolExamples(tool: ToolConfig): Example[] {
+  return [
+    {
+      input: `Create a ${tool.name.toLowerCase()} for a beginner audience in a friendly tone.`,
+      output:
+        "Option A with clear structure, Option B with stronger hook, and Option C optimized for quick publishing.",
+    },
+    {
+      input: `Generate 5 variations with SEO focus and include one high-conversion CTA.`,
+      output:
+        "Five variations segmented by intent, each with concise wording and one conversion-oriented call to action.",
+    },
+    {
+      input: `Rewrite for enterprise audience with concise and professional language.`,
+      output:
+        "Professional version with clear value proposition, confidence-building language, and decision-focused messaging.",
+    },
+  ];
+}
+
+export function getToolUseCases(tool: ToolConfig): UseCase[] {
+  return [
+    {
+      title: "Content teams and agencies",
+      description:
+        `Use ${tool.name} to speed up production cycles, reduce revision loops, and maintain consistent messaging across campaigns.`,
+    },
+    {
+      title: "Founders and solo builders",
+      description:
+        "Launch high-quality content faster without hiring large teams by turning rough ideas into usable first drafts in minutes.",
+    },
+    {
+      title: "SEO and growth operators",
+      description:
+        "Generate keyword-aligned variations and test messaging angles quickly to improve click-through rates and ranking outcomes.",
+    },
+  ];
 }
